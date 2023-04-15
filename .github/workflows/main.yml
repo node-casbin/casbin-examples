@@ -1,0 +1,33 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  react:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [^14, ^16, ^18]
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd react && yarn install && yarn test && yarn build
+
+  react-native:
+    if: ${{ false }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [^14, ^16, ^18]
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd react-native && yarn install && yarn test && yarn build
+
+  angular:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [^14, ^16, ^18]
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd angular && yarn install && yarn test --watch=false --browsers=ChromeHeadless && yarn build
